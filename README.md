@@ -1,10 +1,16 @@
 # NetFlow · Mac 网络监控
 
-为 Apple Silicon（含 M2）制作的原生菜单栏工具，支持 macOS 13 及以上。SwiftUI + AppKit，无第三方依赖。界面参考本地 F50 Monitor 的圆角卡片、绿色下行和蓝色上行布局，代码独立实现。
+为 Apple Silicon（含 M2）制作的原生菜单栏工具，支持 macOS 13 及以上。SwiftUI + AppKit，无第三方依赖。界面参考 [F50 Monitor](https://github.com/machao2024/F50PRO-monitor) 的圆角卡片、绿色下行和蓝色上行布局，代码独立实现。
 
 ## 使用
 
-打开 `dist/NetFlow.app`，菜单栏会出现波形图标和实时上下行速率。建议先将应用拖入「应用程序」文件夹，再在设置中按需开启「登录时启动」。没有 Dock 图标；点击菜单栏图标打开面板，右键可暂停监控、查看记录或退出。
+[下载 DMG 安装包](https://github.com/machao2024/netflow/releases/download/v1.0.0/NetFlow-1.0.0-arm64.dmg) · [下载 ZIP 压缩包](https://github.com/machao2024/netflow/releases/download/v1.0.0/NetFlow-1.0.0-arm64.zip) · [查看最新 Release](https://github.com/machao2024/netflow/releases/latest)
+
+适用于 Apple Silicon（M1/M2/M3/M4 等）和 macOS 13 及以上，不支持 Intel Mac。打开 DMG 后，将 `NetFlow.app` 拖到「Applications / 应用程序」；也可以解压 ZIP 后移动应用。无需安装 Xcode 或自行编译。
+
+从「应用程序」打开 NetFlow，菜单栏会出现波形图标和实时上下行速率。没有 Dock 图标；点击菜单栏图标打开面板，右键可暂停监控、查看记录或退出。在设置中可按需开启「登录时启动」。
+
+发布包使用本地 ad-hoc 签名，未经过 Apple Developer ID 公证。首次打开如被 macOS 拦截，可在「系统设置 → 隐私与安全性」中找到该应用并选择「仍要打开」。Release 同时提供 `SHA256SUMS.txt`，可核对安装包完整性。
 
 - 每秒显示上行／下行速率，曲线展示最近 60 次采样。
 - 按自然分钟累计流量，面板的「最近记录」可切换分钟／小时／天，分别显示最近五分钟、五小时或五天，并记住选择；上方保留今日、本小时、本月用量。
@@ -36,6 +42,7 @@
 ./build.sh           # 构建 arm64 App 和 ZIP，输出到 dist/
 ./build.sh --run     # 构建并打开
 ./build.sh --debug   # 调试构建
+./scripts/package-release.sh # 将 dist/NetFlow.app 打包为 DMG、ZIP 和 SHA-256 校验文件
 ./scripts/test.sh    # 核心采样、存储、时间边界测试
 .build/debug/NetFlow --probe --seconds 3
 ```
