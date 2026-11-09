@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+.DS_Store
+*.sqlite*
+dist/
+.env
+.env.*
+*.csv
+*.tsv
+*.log
